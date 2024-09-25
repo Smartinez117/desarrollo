@@ -14,3 +14,6 @@ INSERT INTO estudiante (legajo, nombre, DNI, fecha_nacimiento, fecha_ingreso, di
 (1002, 'María Gómez', 87654321.00, '1999-04-20', '2020-08-15', 'Avenida Siempre Viva 742'),
 (1003, 'Luis Martínez', 23456789.00, '2001-12-30', '2022-01-10', 'Boulevard de los Sueños 456'),
 (1004, 'Ana Rodríguez', 34567890.00, '2000-07-25', '2021-03-05', 'Plaza Central 789');
+
+--funcion para eliminar una tabla.
+DROP TABLE nombre_tabla;
