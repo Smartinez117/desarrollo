@@ -17,3 +17,4 @@ INSERT INTO estudiante (legajo, nombre, DNI, fecha_nacimiento, fecha_ingreso, di
 
 --funcion para eliminar una tabla.
 DROP TABLE nombre_tabla;
+DROP TABLE test.nombre_tabla;
