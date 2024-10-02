@@ -1,71 +1,48 @@
---estructura de la tabla de estudiantes
-CREATE TABLE estudiante (
-    legajo BIGINT PRIMARY KEY,
-    nombre VARCHAR(255),
-    DNI DOUBLE,
-    fecha_nacimiento DATE,
-    fecha_ingreso DATE,
-    direccion VARCHAR(255)
-);
---uso del insert
-
-INSERT INTO estudiante (legajo, nombre, DNI, fecha_nacimiento, fecha_ingreso, direccion) VALUES
-(1001, 'Juan Pérez', 12345678.00, '2000-05-15', '2021-09-01', 'Calle Falsa 123'),
-(1002, 'María Gómez', 87654321.00, '1999-04-20', '2020-08-15', 'Avenida Siempre Viva 742'),
-(1003, 'Luis Martínez', 23456789.00, '2001-12-30', '2022-01-10', 'Boulevard de los Sueños 456'),
-(1004, 'Ana Rodríguez', 34567890.00, '2000-07-25', '2021-03-05', 'Plaza Central 789');
-
---funcion para eliminar una tabla.
-DROP TABLE nombre_tabla;
-DROP TABLE test.nombre_tabla;
-
---vamoas con las declaraciones para crear las tablas asociadas para el tp de desarrollo
--- Tabla Docente
+--Esta tabla almacenará los datos de los docentes.
 CREATE TABLE Docente (
-    legajo BIGINT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL
+    legajo BIGINT PRIMARY KEY,    -- ID del docente (legajo)
+    nombre VARCHAR(255) NOT NULL  -- Nombre del docente
 );
 
--- Tabla Alumno
+--Esta tabla guardará la información de los alumnos.
 CREATE TABLE Alumno (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    fechaNacimiento DATE
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID único para cada alumno
+    nombre VARCHAR(255) NOT NULL,           -- Nombre del alumno
+    fechaNacimiento DATE                    -- Fecha de nacimiento del alumno
 );
 
--- Tabla Tema
+--Esta tabla define los temas de los cursos.
 CREATE TABLE Tema (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    descripcion TEXT
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID del tema
+    nombre VARCHAR(255) NOT NULL,           -- Nombre del tema
+    descripcion TEXT                        -- Descripción del tema
 );
 
--- Tabla Curso
+--Aquí se almacenan los datos de los cursos. Cada curso tiene un tema y un docente asignado. También hay una tabla de relación para manejar la relación muchos a muchos con los alumnos.
 CREATE TABLE Curso (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    tema_id BIGINT,
-    fechaInicio DATE,
-    fechaFin DATE,
-    docente_legajo BIGINT,
-    precio DOUBLE,
-    FOREIGN KEY (tema_id) REFERENCES Tema(id),
-    FOREIGN KEY (docente_legajo) REFERENCES Docente(legajo)
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID del curso
+    tema_id BIGINT,                         -- ID del tema
+    fechaInicio DATE,                       -- Fecha de inicio del curso
+    fechaFin DATE,                          -- Fecha de fin del curso
+    docente_legajo BIGINT,                  -- ID del docente (legajo)
+    precio DOUBLE,                          -- Precio del curso
+    FOREIGN KEY (tema_id) REFERENCES Tema(id),   -- Relación con Tema
+    FOREIGN KEY (docente_legajo) REFERENCES Docente(legajo) -- Relación con Docente
 );
 
--- Tabla Alumno_Curso (relación muchos a muchos entre alumnos y cursos)
+--Dado que un alumno puede estar en varios cursos, y un curso puede tener varios alumnos, necesitamos una tabla intermedia para representar esta relación de muchos a muchos.
 CREATE TABLE Alumno_Curso (
-    curso_id BIGINT,
-    alumno_id BIGINT,
-    PRIMARY KEY (curso_id, alumno_id),
-    FOREIGN KEY (curso_id) REFERENCES Curso(id),
-    FOREIGN KEY (alumno_id) REFERENCES Alumno(id)
+    curso_id BIGINT,                        -- ID del curso
+    alumno_id BIGINT,                       -- ID del alumno
+    PRIMARY KEY (curso_id, alumno_id),      -- Llave primaria compuesta
+    FOREIGN KEY (curso_id) REFERENCES Curso(id),  -- Relación con Curso
+    FOREIGN KEY (alumno_id) REFERENCES Alumno(id) -- Relación con Alumno
 );
---con esto las tablas estarian creadas ahora para crear un insert para cada una se puede usar lo siguiente
 
+--insercion de datos en cada una de las tablas ------------------------------
 INSERT INTO Docente (legajo, nombre) VALUES
 (1001, 'María García'),
 (1002, 'Juan Pérez');
-
 
 INSERT INTO Alumno (nombre, fechaNacimiento) VALUES
 ('Ana López', '2000-01-15'),
@@ -79,17 +56,15 @@ INSERT INTO Alumno (nombre, fechaNacimiento) VALUES
 ('Sofía Ruiz', '1998-04-10'),
 ('David Moreno', '2000-08-05');
 
-
 INSERT INTO Tema (nombre, descripcion) VALUES
 ('Matemáticas', 'Curso de álgebra avanzada y geometría'),
 ('Historia', 'Estudio de la historia moderna y contemporánea');
 
-
 INSERT INTO Curso (tema_id, fechaInicio, fechaFin, docente_legajo, precio) VALUES
-(1, '2024-10-01', '2024-12-15', 1001, 150.00),
-(2, '2024-11-01', '2025-01-30', 1002, 200.00);
+(1, '2024-10-01', '2024-12-15', 1001, 150.00),   -- Curso de matemáticas
+(2, '2024-11-01', '2025-01-30', 1002, 200.00);   -- Curso de historia
 
--- Matricular alumnos en el curso de Matemáticas (curso_id = 1)
+-- Asignar alumnos al curso de Matemáticas (curso_id = 1)
 INSERT INTO Alumno_Curso (curso_id, alumno_id) VALUES
 (1, 1), -- Ana López
 (1, 2), -- Carlos Martínez
@@ -97,7 +72,7 @@ INSERT INTO Alumno_Curso (curso_id, alumno_id) VALUES
 (1, 4), -- Miguel Fernández
 (1, 5); -- Lucía Rodríguez
 
--- Matricular alumnos en el curso de Historia (curso_id = 2)
+-- Asignar alumnos al curso de Historia (curso_id = 2)
 INSERT INTO Alumno_Curso (curso_id, alumno_id) VALUES
 (2, 6), -- Javier Sánchez
 (2, 7), -- Carmen Díaz
