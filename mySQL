@@ -31,7 +31,7 @@ CREATE TABLE curso (
 );
 
 --Dado que un alumno puede estar en varios cursos, y un curso puede tener varios alumnos, necesitamos una tabla intermedia para representar esta relación de muchos a muchos.
-CREATE TABLE Alumno_Curso (
+CREATE TABLE alumno_curso (
     curso_id BIGINT,                        -- ID del curso
     alumno_id BIGINT,                       -- ID del alumno
     PRIMARY KEY (curso_id, alumno_id),      -- Llave primaria compuesta
@@ -40,11 +40,11 @@ CREATE TABLE Alumno_Curso (
 );
 
 --insercion de datos en cada una de las tablas ------------------------------
-INSERT INTO Docente (legajo, nombre) VALUES
+INSERT INTO docente (legajo, nombre) VALUES
 (1001, 'María García'),
 (1002, 'Juan Pérez');
 
-INSERT INTO Alumno (nombre, fechaNacimiento) VALUES
+INSERT INTO alumno (nombre, fecha_nacimiento) VALUES
 ('Ana López', '2000-01-15'),
 ('Carlos Martínez', '1999-06-23'),
 ('Laura Gómez', '2001-03-12'),
@@ -56,11 +56,11 @@ INSERT INTO Alumno (nombre, fechaNacimiento) VALUES
 ('Sofía Ruiz', '1998-04-10'),
 ('David Moreno', '2000-08-05');
 
-INSERT INTO Tema (nombre, descripcion) VALUES
+INSERT INTO tema (nombre, descripcion) VALUES
 ('Matemáticas', 'Curso de álgebra avanzada y geometría'),
 ('Historia', 'Estudio de la historia moderna y contemporánea');
 
-INSERT INTO Curso (tema_id, fechaInicio, fechaFin, docente_legajo, precio) VALUES
+INSERT INTO curso (tema_id, fecha_inicio, fecha_fin, docente_legajo, precio) VALUES
 (1, '2024-10-01', '2024-12-15', 1001, 150.00),   -- Curso de matemáticas
 (2, '2024-11-01', '2025-01-30', 1002, 200.00);   -- Curso de historia
 
