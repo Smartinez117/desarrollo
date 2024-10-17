@@ -5,25 +5,25 @@ CREATE TABLE Docente (
 );
 
 --Esta tabla guardará la información de los alumnos.
-CREATE TABLE Alumno (
+CREATE TABLE alumno (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID único para cada alumno
     nombre VARCHAR(255) NOT NULL,           -- Nombre del alumno
-    fechaNacimiento DATE                    -- Fecha de nacimiento del alumno
+    fecha_nacimiento DATE                    -- Fecha de nacimiento del alumno
 );
 
 --Esta tabla define los temas de los cursos.
-CREATE TABLE Tema (
+CREATE TABLE tema (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID del tema
     nombre VARCHAR(255) NOT NULL,           -- Nombre del tema
     descripcion TEXT                        -- Descripción del tema
 );
 
 --Aquí se almacenan los datos de los cursos. Cada curso tiene un tema y un docente asignado. También hay una tabla de relación para manejar la relación muchos a muchos con los alumnos.
-CREATE TABLE Curso (
+CREATE TABLE curso (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,   -- ID del curso
     tema_id BIGINT,                         -- ID del tema
-    fechaInicio DATE,                       -- Fecha de inicio del curso
-    fechaFin DATE,                          -- Fecha de fin del curso
+    fecha_inicio DATE,                       -- Fecha de inicio del curso
+    fecha_fin DATE,                          -- Fecha de fin del curso
     docente_legajo BIGINT,                  -- ID del docente (legajo)
     precio DOUBLE,                          -- Precio del curso
     FOREIGN KEY (tema_id) REFERENCES Tema(id),   -- Relación con Tema
